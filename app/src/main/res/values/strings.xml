@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">ArtSpaceApp</string>
 
-    <string name="art1_title">Звёздная ночь</string>
-    <string name="art1_artist">Ван Гог</string>
+    <string name="art1_title">The Starry Night</string>
+    <string name="art1_artist">Vincent van Gogh</string>
     <string name="art1_year">1889</string>
 
-    <string name="art2_title">Мона Лиза</string>
-    <string name="art2_artist">Леонардо да Винчи</string>
+    <string name="art2_title">Mona Lisa</string>
+    <string name="art2_artist">Leonardo da Vinci</string>
     <string name="art2_year">1503</string>
 
-    <string name="art3_title">Чёрный квадрат</string>
-    <string name="art3_artist">Казимир Малевич</string>
+    <string name="art3_title">Black Square</string>
+    <string name="art3_artist">Kazimir Malevich</string>
     <string name="art3_year">1915</string>
 </resources>
