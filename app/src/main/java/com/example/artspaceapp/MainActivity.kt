@@ -25,6 +25,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,22 +54,26 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-//
-//data class ArtWork(
-//    @DrawableRes val image: Int,
-//    @StringRes val title: String,
-//    @StringRes val artist: String,
-//    @StringRes val year: String
-//)
-//
-//val artwork = listOf(
-//    ArtWork(R.drawable.art1, R.string.art1_title, R.string.art1_artist, R.string.art1_year),
-//    ArtWork(R.drawable.art2, R.string.art2_title, R.string.art2_artist, R.string.art2_year),
-//    ArtWork(R.drawable.art3, R.string.art3_title, R.string.art3_artist, R.string.art3_year)
-//)
+
+data class ArtWork(
+    @DrawableRes val image: Int,
+    @StringRes val title: Int,
+    @StringRes val artist: Int,
+    @StringRes val year: Int
+)
+
+val artwork = listOf(
+    ArtWork(R.drawable.art1, R.string.art1_title, R.string.art1_artist, R.string.art1_year),
+    ArtWork(R.drawable.art2, R.string.art2_title, R.string.art2_artist, R.string.art2_year),
+    ArtWork(R.drawable.art3, R.string.art3_title, R.string.art3_artist, R.string.art3_year)
+)
 
 @Composable
 fun ArtSpaceApp() {
+
+    var index by rememberSaveable { mutableIntStateOf(0) }
+    val art = artwork[index]
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -83,8 +91,8 @@ fun ArtSpaceApp() {
             color = Color.White
         ) {
             Image(
-                painter = painterResource(R.drawable.art1),
-                contentDescription = stringResource(R.string.art1_title),
+                painter = painterResource(art.image),
+                contentDescription = stringResource(art.title),
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.padding(24.dp)
             )
@@ -101,7 +109,7 @@ fun ArtSpaceApp() {
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = stringResource(R.string.art1_title),
+                    text = stringResource(art.title),
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Light
                 )
@@ -110,13 +118,13 @@ fun ArtSpaceApp() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = stringResource(R.string.art1_artist),
+                        text = stringResource(art.artist),
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
 
                     Text(
-                        text = " (${stringResource(R.string.art1_year)})",
+                        text = " (${stringResource(art.year)})",
                         fontSize = 14.sp
                     )
                 }
@@ -129,14 +137,30 @@ fun ArtSpaceApp() {
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Button(
-                onClick = {},
+                onClick = {
+                    if (index == 0) {
+                        index = 2
+                    } else if (index == 1) {
+                        index = 0
+                    } else {
+                        index = 1
+                    }
+                },
                 modifier = Modifier.weight(1f)
             ) {
                 Text("Previous")
             }
 
             Button(
-                onClick = {},
+                onClick = {
+                    if (index == 0) {
+                        index = 1
+                    } else if (index == 1) {
+                        index = 2
+                    } else {
+                        index = 0
+                    }
+                },
                 modifier = Modifier.weight(1f)
             ) {
                 Text("Next")
